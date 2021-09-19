@@ -1,5 +1,5 @@
-class User < ActiveRecord::Base[5.2]
-include Slugify
+class User < ActiveRecord::Base
+# include Slugify
     has_many :plants
 
 end

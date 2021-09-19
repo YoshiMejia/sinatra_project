@@ -1,5 +1,5 @@
-class Plant < ActiveRecord::Base[5.2]
-    include Slugify
+class Plant < ActiveRecord::Base
+    # include Slugify
 
     belongs_to :user
 end
