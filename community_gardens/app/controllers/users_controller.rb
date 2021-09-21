@@ -1,18 +1,18 @@
 class UsersController < ApplicationController
 
 get '/error' do
-    erb :'/users/error'
+    erb :'/errors/error'
 end
 
-get '/welcome' do #main page
-    erb :'welcome'
-end
+# get '/welcome' do #main page
+#     erb :'welcome'
+# end
 
 
 #create
 get '/signup' do 
     if !logged_in? #if not logged in
-        erb :'/users/signup' #signup form
+        erb :'/registrations/signup' #signup form
     else #if user is logged into session
         # binding.pry
         @user = User.find(session[:user_id]) #search class for acct by current session user_id
@@ -25,10 +25,10 @@ post '/signup' do #create user
     # if params[:name] == "" || params[:email] == "" || params[:password] == ""
     if params[:name].empty? || params[:email].empty?  || params[:password].empty? 
         #check if .empty? works
-        erb :'errors/empty_error'
+        redirect '/error'
         #redirect to specific "empty field" error if the params are empty?
     else #if the params are not empty, create user
-        @user = User.create(:name => params[:name], :email => params[:email], :password => params[:password])
+        @user = User.create(:name => params[:name], :address => params[:address], :email => params[:email], :password => params[:password])
         @user.save
         session[:user_id] = @user.id
         redirect "users/#{@user.id}/homepage" 
@@ -43,7 +43,7 @@ end
 
 get '/login' do #login link from welcome page
     if !logged_in? #if not logged in
-        erb :'users/login' #get loginpage
+        erb :'sessions/login' #get loginpage
     else #if they are logged in, render that user's homepage
         # binding.pry
         @user = User.find(session[:user_id])
@@ -67,9 +67,9 @@ end
 get '/logout' do
     if logged_in?
         session.destroy
-        redirect to '/login'
+        erb :index
     else
-        redirect to '/'
+        erb :index
     end
     
 end
@@ -80,7 +80,6 @@ get '/users/:id' do
     @user = User.find(params[:id]) #find correct user
     if !@user.nil? && @user == current_user #validate that the current user is correct
         redirect "users/#{@user.id}/homepage"
-        erb :'/users/profile'
     end
 end
 #read
@@ -99,11 +98,16 @@ get '/users/:id/edit_profile' do #need to create link on profile view
 end
 
 patch '/users/:id' do
-    @user = User.find(params[:id]) 
-    @user.update(params["user"])
-    @user.id = params["id"]
-    @user.save
-    redirect "users/#{@user.id}/homepage"
+    # binding.pry
+    if params["user"]["name"].empty? || params["user"]["address"].empty? || params["user"]["email"].empty? || params["user"]["password"].empty?
+        redirect '/error'
+    else
+        @user = User.find(params[:id]) 
+        @user.update(params["user"])
+        @user.id = params["id"]
+        @user.save
+        redirect "users/#{@user.id}/homepage"
+    end
 end
 
 end #class ender
