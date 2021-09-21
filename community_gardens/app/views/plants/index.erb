@@ -1,0 +1,37 @@
+<h1> Hey, <%= @user.name %>! Here's a view of your garden. </h1>
+<br><br>
+
+<div class="sidebar">
+<center>
+<a href='/plants/new'><h3> Add a plant to your Garden!</h3></a>
+<br>
+
+<% if !@user.plants.empty? %>
+    <i><b>or...</b></i>
+    <br><br>
+    <h3>Clear your garden and start fresh!</h3>
+    <form method="post" action="/plants/<%= @user.id %>/delete_garden">
+    <input id="hidden" type="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="Delete my garden!" />
+    </form>
+    <br>
+<% end %>
+</center>
+</div>
+
+
+<% @plants.each do |plant| %>
+
+<ol>
+    <h2>
+        <li><a href='/plants/<%= plant.id %>'> <%= plant.name %></li></a>
+    </h2>
+</ol>
+<ul>
+    <h3>
+        <li> <%= plant.description %></li>
+    </h3>
+</ul>
+<br><br><br>
+
+<% end %>

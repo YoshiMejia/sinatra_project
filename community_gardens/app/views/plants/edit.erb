@@ -1,0 +1,24 @@
+<h2> Please fill out the form <u>without blank fields</u> or Nosferatu will get ya!</h2>
+
+<form action="/plants/<%= @plant.id %>" method="POST"> 
+<input type="hidden" name="_method" value="patch">  
+
+<label>Edit Name:</label>
+<br>
+<input type="text" id="name" name="plant[name]"><br></br>
+<label>Edit Info:</label>
+<br>
+<input type="text" id="address" name="plant[info]"><br></br>
+
+<input type="submit" value="Update Plant">
+</form>
+<br><br>
+
+<hr />
+<hr />
+<h5>You can also delete this plant entry here!</h5>
+
+<form method="post" action="/plants/<%= @plant.id %>">
+  <input id="hidden" type="hidden" name="_method" value="DELETE" />
+  <input type="submit" value="Delete this plant" />
+</form>

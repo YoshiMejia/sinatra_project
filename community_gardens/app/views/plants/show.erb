@@ -1,0 +1,16 @@
+<h1>Hey, <%= @user.name %>! This is the info you currently have for...
+<br> <center><%= @plant.name %></center>
+</h1>
+<br><br>
+
+<center><p><%= @plant.description %></p>
+</center>
+
+<br><br><h5>Would you like to edit this plant? Follow <a href='/plants/<%= @plant.id %>/edit_plant'> this link </a> to edit!</h4>
+<br><hr />
+<h5>You can also delete this plant entry here!</h5>
+
+<form method="post" action="/plants/<%= @plant.id %>/delete_plant">
+  <input id="hidden" type="hidden" name="_method" value="DELETE" />
+  <input type="submit" value="Delete this plant" />
+</form>
