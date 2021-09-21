@@ -13,27 +13,13 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    erb :welcome
+    erb :index
   end
-
-  get '/signup' do
-    erb :'registrations/signup'
-  end
-
-  post '/signup' do
-    @user = User.new(name: params["name"], email: params["email"], password: params["password"])
-    @user.save
-    session[:user_id] = @user.id
-    redirect '/' #NEEDS TO BE CHANGED TO USERS HOMEPAGE, ONCE ROUTE IS BUILT
-  end
-
-
-
 
   helpers do
-    def redirect_if_not_logged_in
+    def redirect_if_not_logged_in 
       if !logged_in?
-        redirect "/login?error=You have to be logged in to do that"
+        redirect '/error'
       end
     end
 
@@ -42,7 +28,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      User.find(session[:user_id])
+      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
     end
 
   end
