@@ -1,2 +1,17 @@
 
-<h1>Welcome to CommunityGardens, <%= @user.name.capitalize %>! </h1>
+<h1>Welcome to your CommunityGarden, <%= @user.name.capitalize %>! </h1>
+<body>
+<br><br><br>
+ <big>Current Acount details:</big>
+<ul> 
+    <li> <b><u>Email:</b></u> <%= @user.email %> </li>
+    </li> <b><u>Street Address:</b></u>  <%= @user.address %> </li>
+</ul>
+<div class="sidebar">
+
+<a href='/plants'><h3> View your Garden!</h3></a>
+<a href='/plants/new'><h3> Add a plant to your Garden!</h3></a>
+<a href='/users/<%= @user.id %>/edit_profile'><h3>Edit Account Details</a></h3>
+
+</div>
+</body>

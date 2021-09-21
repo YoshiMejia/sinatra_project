@@ -1,0 +1,21 @@
+<h2> Please fill out the form <u>without blank fields</u> or Nosferatu will get ya!</h2>
+
+<form action="/users/<%= @user.id %>" method="POST"> 
+<input type="hidden" name="_method" value="patch">  
+
+
+<label>Edit Name:</label>
+<br>
+<input type="text" id="name" name="user[name]"><br></br>
+<label>Edit Address:</label>
+<br>
+<input type="text" id="address" name="user[address]"><br></br>
+<label>Edit Email:</label>
+<br>
+<input type="text" id="email" name="user[email]"><br></br>
+<label>Edit Password:</label>
+<br>
+<input type="password" id="password" name="user[password]"><br></br>
+
+<input type="submit" value="Update Profile">
+</form>
