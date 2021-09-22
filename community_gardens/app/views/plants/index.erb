@@ -1,4 +1,4 @@
-<h1> Hey, <%= @user.name %>! Here's a view of your garden. </h1>
+<h1> Hey, <%= @user.name.capitalize %>! Here's a view of your garden. </h1>
 <br><br>
 
 <div class="sidebar">
@@ -24,7 +24,7 @@
 
 <ol>
     <h2>
-        <li><a href='/plants/<%= plant.id %>'> <%= plant.name %></li></a>
+        <li><a href='/plants/<%= plant.id %>'> <%= plant.name.capitalize %></li></a>
     </h2>
 </ol>
 <ul>
@@ -35,3 +35,6 @@
 <br><br><br>
 
 <% end %>
+
+
+

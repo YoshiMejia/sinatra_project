@@ -5,10 +5,10 @@
 
 <label>Edit Name:</label>
 <br>
-<input type="text" id="name" name="plant[name]"><br></br>
+<input type="text" id="name" name="plant[name]" placeholder="<%= @plant.name.capitalize %>"><br></br>
 <label>Edit Info:</label>
 <br>
-<input type="text" id="address" name="plant[info]"><br></br>
+<input type="text" id="address" name="plant[description]" placeholder="<%= @plant.description %>"><br></br>
 
 <input type="submit" value="Update Plant">
 </form>
@@ -18,7 +18,7 @@
 <hr />
 <h5>You can also delete this plant entry here!</h5>
 
-<form method="post" action="/plants/<%= @plant.id %>">
+<form method="post" action="/plants/<%= @plant.id %>/delete_plant">
   <input id="hidden" type="hidden" name="_method" value="DELETE" />
   <input type="submit" value="Delete this plant" />
 </form>
