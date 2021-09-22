@@ -2,22 +2,22 @@ user_list = {
   "Tim" => {
     :address => "123 Main St",
     :email => "tim@gmail",
-    :password => "passwardo"
+    :password_digest => "passwardo"
   },
   "Bob" => {
     :address => "456 sobo ave",
     :email => "bobby@gmail",
-    :password => "huhuhu"
+    :password_digest => "huhuhu"
   },
   "Hanna" => {
     :address => "123123 south ave",
     :email => "hanbanan@aol",
-    :password => "different0"
+    :password_digest => "different0"
   },
   "henry" => {
     :address => "990 Spring st",
     :email => "tim@gmail",
-    :password => "delta2"
+    :password_digest => "delta2"
 }}
 
 user_list.each do |name, user_hash|
