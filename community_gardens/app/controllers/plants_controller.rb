@@ -1,7 +1,7 @@
 class PlantsController < ApplicationController
 
+    
     #create - make new plant objects
-
     get '/plants/new' do
         erb :'/plants/new'
     end
@@ -10,7 +10,7 @@ class PlantsController < ApplicationController
         if params[:name].empty? || params[:info].empty?
             erb :'errors/empty_error'
         else
-            @plant = Plant.create(name: params[:name], description: params[:info], user_id: session[:user_id])
+            @plant = Plant.create(name: params[:name].downcase, description: params[:info], user_id: session[:user_id])
             @plant.save
             @user = User.find_by(id: @plant.user_id)
             @plants = @user.plants
@@ -23,18 +23,19 @@ class PlantsController < ApplicationController
         redirect_if_not_logged_in
         @user = User.find_by(id: session[:user_id])
         @plants = @user.plants
+        @users_plants = Plant.where(user_id: @user.id)
         erb :'/plants/index'
     end
 
     #edit - edit the user's plants
-    #this can be a link from the index view, that way it automatically grabs just one id
-
-    get '/plants/:id' do #patch redirects here
+    get '/plants/:id' do 
         redirect_if_not_logged_in
-        # binding.pry
         @user = User.find(session[:user_id])
-        @plants = @user.plants 
         @plant = Plant.find_by(id: params[:id])
+        @plant_users = Plant.where(name: @plant.name)
+        #grabbing the users who have this plant
+        @plant_users = @plant_users.where.not(user_id: @user.id)
+        #removing the current user from the variable
         if @plant.user == @user
             erb :'/plants/show'
         else
@@ -45,8 +46,7 @@ class PlantsController < ApplicationController
     get '/plants/:id/edit_plant' do #view form for editing
         redirect_if_not_logged_in
         @user = User.find(session[:user_id])
-        @plant = Plant.find_by(params[:id])
-        # binding.pry
+        @plant = Plant.find_by(id: params[:id])
         if @plant.user == @user
             erb :'/plants/edit'
         else
@@ -67,9 +67,12 @@ class PlantsController < ApplicationController
         end
     end
 
+
     delete '/plants/:id/delete_garden' do
         @user = User.find(session[:user_id])
-        @user.plants.clear
+        @plants = @user.plants
+        @users_plants = Plant.where(user_id: @user.id)
+        @users_plants.destroy_all
         redirect "users/#{@user.id}/homepage"
     end
 
