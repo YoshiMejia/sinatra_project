@@ -2,11 +2,23 @@
 <h1>Welcome to your CommunityGarden, <%= @user.name.capitalize %>! </h1>
 <body>
 <br><br><br>
- <big>Current Acount details:</big>
-<ul> 
-    <li> <b><u>Email:</b></u> <%= @user.email %> </li>
-    </li> <b><u>Street Address:</b></u>  <%= @user.address %> </li>
-</ul>
+ <big><b>Current Acount details:</b></big>
+<br>
+<b><u>- Email:</b></u> <%= @user.email %> <br>
+<b><u>- Street Address:</b></u> <%= @user.address %> <br><br><br>
+
+<% unless @plants.nil? %>
+<h3>Plants in your Community: </h3>
+<% @plants.each do |plant| %>
+
+    - <%= plant.user.name.capitalize if plant.user %> has a <%= plant.name.capitalize %> plant! <br>
+
+
+    <% end %>
+<% end %>
+
+
+
 <div class="sidebar">
 
 <a href='/plants'><h3> View your Garden!</h3></a>
