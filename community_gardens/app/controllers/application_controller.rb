@@ -16,6 +16,13 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get '/about' do
+    if logged_in?
+      @user = User.find(session[:user_id])
+    end
+    erb :about 
+  end
+
   helpers do
     def redirect_if_not_logged_in 
       if !logged_in?
