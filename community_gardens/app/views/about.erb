@@ -1,0 +1,12 @@
+<h1> About us </h1>
+<p>This site lets you keep track of your own personal garden, and see what plants
+        your neighbors have!<br> You can add a description to each plant you upload, so if
+            you're forgetful and want a quick way to remember how often a plant needs to be watered-
+            your CommunityGardens account will be a great way to keep track!</p>
+
+
+<% if logged_in? %>
+    Thanks for being a member, <%= @user.name.capitalize %>! 
+<% else %>
+Please log-in to access our full site.
+<% end %>
