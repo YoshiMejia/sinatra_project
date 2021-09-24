@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
 #create
 get '/signup' do 
     if !logged_in? 
@@ -23,10 +22,10 @@ post '/signup' do #create user
 end
 
 get '/login' do #login link from welcome page
-    @user = User.find(session[:user_id])
     if !logged_in? #if not logged in
         erb :'sessions/login' #get loginpage
     elsif !@user == current_user #validate user 
+        @user = User.find(session[:user_id])
         erb :'/errors/user_error'
     else
         #if they are logged in, render that user's homepage
